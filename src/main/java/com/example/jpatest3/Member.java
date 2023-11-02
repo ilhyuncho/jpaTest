@@ -3,7 +3,7 @@ package com.example.jpatest3;
 import javax.persistence.*;
 
 @Entity
-public class Member2 {
+public class Member {
 
     @Id
     //@Column(name = "ID")
