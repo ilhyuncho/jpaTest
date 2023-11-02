@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <persistence-unit name="jpabook">
+<!--        unknown entity 오류 수정 때문에-->
+<!--        <class>com.example.jpatest3.Member2</class>-->
+
+<!--        아래 셋팅을 해줘서 위 설정을 안해도 됨-->
+<!--        아래 셋팅을 해줘서 위 설정을 안해도 됨-->
+<!--        아래 셋팅을 해줘서 위 설정을 안해도 됨-->
+
+
+<!--        //apply plugin: "java"-->
+<!--        //-->
+<!--        //sourceSets {-->
+<!--        //    main {-->
+<!--        //        output.resourcesDir = "${buildDir}/classes/java/main"-->
+<!--        //    }-->
+<!--        //}-->
+
+
+        <properties>
+            <!-- H2 데이터베이스 드라이버 및 설정 -->
+            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="webuser"/>
+            <property name="javax.persistence.jdbc.password" value="abcd1234"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/jpaTest"/>
+
+            <!-- 테이블 자동 생성 -->
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+
+
+            <!-- 실행되는 SQL 을 보여줌 -->
+            <property name="hibernate.show_sql" value="true" />
+            <!-- 실행되는 SQL 을 이쁘게 보여줌 -->
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
