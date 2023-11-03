@@ -1,5 +1,7 @@
 package com.example.jpatest3;
 
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,15 +12,20 @@ import java.util.Date;
         name = "NAME_AGE_UNIQUE",
         columnNames = {"NAME", "AGE"}
 )})
+@ToString
 public class Member2 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+    @Column(name = "MEMBER_ID")
+    private String  id;
 
     @Column(name = "NAME", nullable = false, length = 10)
     private String username;
+
+    // 연관관계 매핑
+    @ManyToOne
+    @JoinColumn(name="TEAM_ID") // joinColumn을 생략하면 외래 키를 찾을때 기본 전략을 사용 함 (필드명 + _ + 참조하는 테이블의 컬럼명)
+    private Team team;
 
     private Integer age;
 
@@ -35,11 +42,16 @@ public class Member2 {
     @Lob
     private String description;
 
-    public Long getId() {
+    public Member2(String id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -57,5 +69,13 @@ public class Member2 {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

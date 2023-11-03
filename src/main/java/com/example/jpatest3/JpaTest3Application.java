@@ -1,6 +1,7 @@
 package com.example.jpatest3;
 
 import com.example.jpatest3.entity.Member;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +12,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 @SpringBootApplication
+@Log4j2
 public class JpaTest3Application {
 
     public static void main(String[] args) {
@@ -34,7 +36,9 @@ public class JpaTest3Application {
         try {
 
             tx.begin(); //트랜잭션 시작
+
             logic1(em);  //비즈니스 로직
+
             tx.commit();//트랜잭션 커밋
 
         } catch (Exception e) {
@@ -50,53 +54,72 @@ public class JpaTest3Application {
 
     public static void logic1(EntityManager em) {
 
-        String id = "id5";
-        Member member = new Member();
+        // 팀1 저장
+        Team team1 = new Team("team1", "팀1");
+        em.persist(team1);
 
-        member.setName("지한1");
+        // 회원1 저장
+        Member2 member1 = new Member2("member1", "회원1");
+        member1.setTeam(team1);
+        em.persist(member1);
+
+        // 회원2 저장
+        Member2 member2 = new Member2("member2", "회원2");
+        member2.setTeam(team1);
+        em.persist(member2);
+
+        // 객체 그래프 탐색
+        Member2 member = em.find(Member2.class, "member1");
+        Team team = member.getTeam();
+        log.info("팀이름 =" + team.getName());
+
+        // JPQL 조인 검색
+        String jpql = "select m from Member2 m join m.team t where t.name=:teamName";
+
+        List<Member2> resultList = em.createQuery(jpql,Member2.class).setParameter("teamName", "팀1").getResultList();
+
+        for (Member2 member21 : resultList) {
+            log.warn(member21.getUsername());
+        }
 
 
-        //등록
-        em.persist(member);
 
-        //수정
-        member.setCity("seouls");
 
-        //한 건 조회
-        Member findMember2 = em.find(Member.class, 1L);
-        System.out.println("findMember2=" + findMember2.getCity() );
+//        List<Member2> members = em.createQuery("SELECT M FROM Member2 M JOIN Team T ON M.team.name = T.name",  Member2.class).getResultList();
+//
+//        for (Member2 member : members) {
+//            log.info(member);
+//        }
 
-        //목록 조회
-        List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
-        System.out.println("members.size=" + members.size());
+        log.info("----logic1----end");
 
-        //삭제
-        // em.remove(member);
+
+
 
     }
 
 
     public static void logic(EntityManager em) {
-
-        String id = "id5";
-        Member2 member = new Member2();
-        //member.setId(id);
-        member.setUsername("지한1");
-        member.setAge(2);
-
-        //등록
-        em.persist(member);
-
-        //수정
-        member.setAge(20);
-
-        //한 건 조회
-        Member2 findMember2 = em.find(Member2.class, 1L);
-        System.out.println("findMember2=" + findMember2.getUsername() + ", age=" + findMember2.getAge());
-
-        //목록 조회
-        List<Member2> members = em.createQuery("select m from Member2 m", Member2.class).getResultList();
-        System.out.println("members.size=" + members.size());
+//
+//        String id = "id5";
+//        Member2 member = new Member2();
+//        //member.setId(id);
+//        member.setUsername("지한1");
+//        member.setAge(2);
+//
+//        //등록
+//        em.persist(member);
+//
+//        //수정
+//        member.setAge(20);
+//
+//        //한 건 조회
+//        Member2 findMember2 = em.find(Member2.class, 1L);
+//        System.out.println("findMember2=" + findMember2.getUsername() + ", age=" + findMember2.getAge());
+//
+//        //목록 조회
+//        List<Member2> members = em.createQuery("select m from Member2 m", Member2.class).getResultList();
+//        System.out.println("members.size=" + members.size());
 
         //삭제
        // em.remove(member);
