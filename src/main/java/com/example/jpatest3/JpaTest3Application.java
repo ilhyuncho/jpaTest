@@ -1,5 +1,6 @@
 package com.example.jpatest3;
 
+import com.example.jpatest3.entity.Member;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -33,7 +34,7 @@ public class JpaTest3Application {
         try {
 
             tx.begin(); //트랜잭션 시작
-            logic(em);  //비즈니스 로직
+            logic1(em);  //비즈니스 로직
             tx.commit();//트랜잭션 커밋
 
         } catch (Exception e) {
@@ -46,10 +47,39 @@ public class JpaTest3Application {
         emf.close(); //엔티티 매니저 팩토리 종료
 
     }
-    public static void logic(EntityManager em) {
+
+    public static void logic1(EntityManager em) {
 
         String id = "id5";
         Member member = new Member();
+
+        member.setName("지한1");
+
+
+        //등록
+        em.persist(member);
+
+        //수정
+        member.setCity("seouls");
+
+        //한 건 조회
+        Member findMember2 = em.find(Member.class, 1L);
+        System.out.println("findMember2=" + findMember2.getCity() );
+
+        //목록 조회
+        List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
+        System.out.println("members.size=" + members.size());
+
+        //삭제
+        // em.remove(member);
+
+    }
+
+
+    public static void logic(EntityManager em) {
+
+        String id = "id5";
+        Member2 member = new Member2();
         //member.setId(id);
         member.setUsername("지한1");
         member.setAge(2);
@@ -61,11 +91,11 @@ public class JpaTest3Application {
         member.setAge(20);
 
         //한 건 조회
-        Member findMember = em.find(Member.class, 1L);
-        System.out.println("findMember=" + findMember.getUsername() + ", age=" + findMember.getAge());
+        Member2 findMember2 = em.find(Member2.class, 1L);
+        System.out.println("findMember2=" + findMember2.getUsername() + ", age=" + findMember2.getAge());
 
         //목록 조회
-        List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
+        List<Member2> members = em.createQuery("select m from Member2 m", Member2.class).getResultList();
         System.out.println("members.size=" + members.size());
 
         //삭제
