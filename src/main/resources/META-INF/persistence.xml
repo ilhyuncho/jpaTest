@@ -39,6 +39,10 @@
             <!-- 실행되는 SQL 을 이쁘게 보여줌 -->
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
+
+            <!-- 키 생성 전략 사용-->
+            <property name="hibernate.id.new_generator_mapping" value="true" />
+
         </properties>
     </persistence-unit>
 

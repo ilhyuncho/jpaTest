@@ -50,7 +50,7 @@ public class JpaTest3Application {
 
         String id = "id5";
         Member member = new Member();
-        member.setId(id);
+        //member.setId(id);
         member.setUsername("지한1");
         member.setAge(2);
 
@@ -61,7 +61,7 @@ public class JpaTest3Application {
         member.setAge(20);
 
         //한 건 조회
-        Member findMember = em.find(Member.class, id);
+        Member findMember = em.find(Member.class, 1L);
         System.out.println("findMember=" + findMember.getUsername() + ", age=" + findMember.getAge());
 
         //목록 조회
@@ -69,7 +69,7 @@ public class JpaTest3Application {
         System.out.println("members.size=" + members.size());
 
         //삭제
-        em.remove(member);
+       // em.remove(member);
 
     }
 
