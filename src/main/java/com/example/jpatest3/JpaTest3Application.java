@@ -37,14 +37,12 @@ public class JpaTest3Application {
 
             tx.begin(); //트랜잭션 시작
 
-//            logic1(em);            // 다대일 연관 관계 (단방향)
+            //logic1(em);            // 다대일 연관 관계 (단방향)
             //biDirection(em);         // 일대다 컬렉션 조회
-
-
             //biDirectionSave(em);      // 일대다 양방향 연관관계 저장
-            biDirectionNonSave(em);     // 일대다 양방향 연관관계 주의점
+            //biDirectionNonSave(em);     // 일대다 양방향 연관관계 주의점
 
-
+            test_양방향_리팩토링(em);
 
             tx.commit();//트랜잭션 커밋
 
@@ -57,6 +55,19 @@ public class JpaTest3Application {
 
         emf.close(); //엔티티 매니저 팩토리 종료
 
+    }
+    public static void test_양방향_리팩토링(EntityManager em){
+        
+        Team team1 = new Team("team1", "팀1");
+        em.persist(team1);
+
+        Member2 member1 = new Member2("member1", "회원1");
+        member1.setTeam(team1);
+        em.persist(member1);
+
+        Member2 member2 = new Member2("member2", "회원2");
+        member2.setTeam(team1);
+        em.persist(member2);
     }
 
     public static void biDirectionNonSave(EntityManager em){

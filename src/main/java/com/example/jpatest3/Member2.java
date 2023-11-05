@@ -81,6 +81,16 @@ public class Member2 {
     }
 
     public void setTeam(Team team) {
+        // 연관 관계 편의 메서드
+
+        // 기존 팀과 관계를 제거
+        if(this.team != null) {
+            this.team.getMembers().remove(this);
+        }
+
         this.team = team;
+
+        // 양방향 관계를 모두 설정
+        team.getMembers().add(this);
     }
 }
