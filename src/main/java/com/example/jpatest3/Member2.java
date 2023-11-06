@@ -31,7 +31,7 @@ public class Member2 {
     @JoinColumn(name="TEAM_ID") // joinColumn을 생략하면 외래 키를 찾을때 기본 전략을 사용 함 (필드명 + _ + 참조하는 테이블의 컬럼명)
     private Team team;          // 주인 - 주인만 데이터베이스 연관관계와 매핑되고 외래 키를 관리 할수 있다,
                                 // 주인이 아닌 반대편은 읽기만 가능하고 외래키를 변경하지는 못한다.
-
+                                // 외래키를 가지고 있다
     private Integer age;
 
     @Enumerated(EnumType.STRING)
