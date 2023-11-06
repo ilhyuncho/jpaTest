@@ -3,10 +3,7 @@ package com.example.jpatest3.entity.oneAndone;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -18,4 +15,7 @@ public class Locker3 {
     private Long id;
 
     private String name;
+
+    @OneToOne(mappedBy = "locker") // 일대일 양방향을 위해, 주인이 아니라고 설정
+    private Member3 member;
 }

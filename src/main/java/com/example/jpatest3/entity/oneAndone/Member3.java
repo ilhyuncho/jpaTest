@@ -17,7 +17,7 @@ public class Member3 {
     private String username;
 
     @OneToOne
-    @JoinColumn(name="LOKCER_ID")
-    private Locker3 locker;
+    @JoinColumn(name="LOCKER_ID")
+    private Locker3 locker;         // 외래키를 가지고 있음, 연관관계의 주인
 
 }
