@@ -1,0 +1,21 @@
+package com.example.jpatest3.entity.oneAndone;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+@Getter
+@Setter
+public class Locker3 {
+
+    @Id @GeneratedValue
+    @Column(name="LOCKER_ID")
+    private Long id;
+
+    private String name;
+}
