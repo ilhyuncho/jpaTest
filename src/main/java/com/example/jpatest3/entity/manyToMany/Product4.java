@@ -6,6 +6,9 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -16,4 +19,7 @@ public class Product4 {
     private String id;
 
     private String name;
+
+    @ManyToMany(mappedBy = "products")  // 역방향 추가
+    private List<Member4> members = new ArrayList<>();
 }

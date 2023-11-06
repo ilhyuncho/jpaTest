@@ -38,17 +38,27 @@ public class JpaTestManyTests {
             Member4 member4 = new Member4();
             member4.setId("member1");
             member4.setUsername("회원1");
-            member4.getProducts().add(product4);
+            //member4.getProducts().add(product4);
+            // 양방향 연관관계
+            member4.addProduct(product4);
+
+            // 역방향으로 객체 그래프를 탐색 가능
+            product4.getMembers().forEach(System.out::println);
 
             em.persist(member4);
 
+            // 양방향 역방향 탐색
+            Product4 product= em.find(Product4.class, "productA");
+            product.getMembers().forEach(System.out::println);
+
             // find
-            Member4 member = em.find(Member4.class, "member1");
+//            Member4 member = em.find(Member4.class, "member1");
+//
+//            member.getProducts().forEach( a-> {
+//
+//                System.out.println("product.name = " +a.getName());
+//            });
 
-            member.getProducts().forEach( a-> {
-
-                System.out.println("product.name = " +a.getName());
-            });
 
 
 
